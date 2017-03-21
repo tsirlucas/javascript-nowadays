@@ -4,7 +4,7 @@ local blocks = display.newGroup()
 
 --setup some variables that we will use to position the ground
 
-local groundLevel = 800
+local roofLevel = 0
 local tileSize = 60;
 local tilesAmount = 50;
 
@@ -30,19 +30,20 @@ function blocks:create()
         --now that we have the right image for the block we are going
         --to give it some member variables that will help us keep track
         --of each block as well as position them where we want them.
-        newBlock.name = ("floor")
+        newBlock.name = ("roof")
         newBlock.id = a
 
         --because a is a variable that is being changed each run we can assign
         --values to the block based on a. In this case we want the x position to
         --be positioned the width of a block apart.
         newBlock.x = (a * tileSize) - tileSize
-        newBlock.y = groundLevel
+        newBlock.y = roofLevel
 
         physics.addBody( newBlock, 'static' )
         blocks:insert(newBlock)
     end
 end
+
 
 function blocks:update(speed)
     for a = 1, blocks.numChildren, 1 do
@@ -54,7 +55,7 @@ function blocks:update(speed)
                 newX = (blocks[tilesAmount]).x + tileSize - speed
             end
 
-            (blocks[a]).x, (blocks[a]).y = newX, groundLevel
+            (blocks[a]).x, (blocks[a]).y = newX, roofLevel
         else
             (blocks[a]):translate(speed * -1, 0)
         end
