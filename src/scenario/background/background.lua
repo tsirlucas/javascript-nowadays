@@ -1,10 +1,10 @@
 local background = display.newRect(0, 0, 5000, 5000)
-local backgroundBigCloud1 = display.newImage("src/scenario/background/images/cloud1@2x.png")
-local backgroundBigCloud2 = display.newImage("src/scenario/background/images/cloud5@2x.png")
-local backgroundBigCloud3 = display.newImage("src/scenario/background/images/cloud1@2x.png")
-local backgroundLittleCloud1 = display.newImage("src/scenario/background/images/cloud2.png")
-local backgroundLittleCloud2 = display.newImage("src/scenario/background/images/cloud3.png")
-local backgroundLittleCloud3 = display.newImage("src/scenario/background/images/cloud4.png")
+local backgroundBigCloud1 = display.newImage('src/scenario/background/images/cloud1@2x.png')
+local backgroundBigCloud2 = display.newImage('src/scenario/background/images/cloud5@2x.png')
+local backgroundBigCloud3 = display.newImage('src/scenario/background/images/cloud1@2x.png')
+local backgroundLittleCloud1 = display.newImage('src/scenario/background/images/cloud2.png')
+local backgroundLittleCloud2 = display.newImage('src/scenario/background/images/cloud3.png')
+local backgroundLittleCloud3 = display.newImage('src/scenario/background/images/cloud4.png')
 
 function background:create()
     background.fill = {
@@ -57,6 +57,15 @@ function background:update(speed)
     if(backgroundLittleCloud3.x < -60) then
         backgroundLittleCloud3.x = 1500
     end
+end
+
+function background:destroy()
+    display.remove(backgroundBigCloud1)
+    display.remove(backgroundBigCloud2)
+    display.remove(backgroundBigCloud3)
+    display.remove(backgroundLittleCloud1)
+    display.remove(backgroundLittleCloud2)
+    display.remove(backgroundLittleCloud3)
 end
 
 return background

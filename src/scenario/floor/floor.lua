@@ -21,16 +21,16 @@ function blocks:create()
         local newBlock
 
         if(numGen == 1) then
-            newBlock = display.newImage("src/scenario/floor/images/1.png")
+            newBlock = display.newImage('src/scenario/floor/images/1.png')
 
         elseif(numGen == 2) then
-            newBlock = display.newImage("src/scenario/floor/images/1.png")
+            newBlock = display.newImage('src/scenario/floor/images/1.png')
         end
 
         --now that we have the right image for the block we are going
         --to give it some member variables that will help us keep track
         --of each block as well as position them where we want them.
-        newBlock.name = ("floor")
+        newBlock.name = ('floor')
         newBlock.id = a
 
         --because a is a variable that is being changed each run we can assign
@@ -39,7 +39,7 @@ function blocks:create()
         newBlock.x = (a * tileSize) - tileSize
         newBlock.y = groundLevel
 
-        physics.addBody( newBlock, 'static' )
+        physics.addBody( newBlock, { density = 10, friction = 10, bounce = 10, filter = { groupIndex = -1 } }  )
         blocks:insert(newBlock)
     end
 end
@@ -59,6 +59,12 @@ function blocks:update(speed)
             (blocks[a]):translate(speed * -1, 0)
         end
 
+    end
+end
+
+function blocks:destroy()
+    for a = 1, blocks.numChildren, 1 do
+        display.remove(blocks[a])
     end
 end
 

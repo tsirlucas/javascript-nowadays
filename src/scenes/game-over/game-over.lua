@@ -7,6 +7,7 @@ local background
 
 local function play()
     composer.gotoScene('src.game')
+    composer.removeScene('src.scenes.game-over.game-over')
 end
 
 function gameOverScene:create(event)
@@ -21,6 +22,13 @@ function gameOverScene:create(event)
     playButtom:addEventListener("tap", play)
 end
 
-gameOverScene:addEventListener("create", gameOverScene)
+function gameOverScene:destroy(event)
+    display.remove(background)
+    display.remove(gameTitle)
+    display.remove(playButtom)
+end
+
+gameOverScene:addEventListener('create', gameOverScene)
+gameOverScene:addEventListener('destroy', gameOverScene)
 
 return gameOverScene

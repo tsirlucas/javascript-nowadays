@@ -1,4 +1,4 @@
-local jslib = require("libs.joystick")
+local jslib = require('libs.joystick')
 
 local joystick = display.newGroup()
 local joystickElement
@@ -22,6 +22,10 @@ end
 function joystick:_catchTimer(callback)
     callback(joystickElement:getDirection(), joystickElement:getAngle(), joystickElement:getDistance())
     return true
+end
+
+function joystick:destroy()
+    display.remove(joystickElement)
 end
 
 return joystick

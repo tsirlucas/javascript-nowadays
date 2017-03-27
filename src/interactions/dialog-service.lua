@@ -1,7 +1,7 @@
 local dialog = display.newGroup()
 
 function dialog:collisions(element)
-    print("Your character collided with the " .. element)
+    print('Your character collided with the ' .. element)
 end
 
 function dialog:interact(type, element)

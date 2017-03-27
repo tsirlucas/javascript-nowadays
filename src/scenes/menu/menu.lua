@@ -1,4 +1,4 @@
-local composer = require("composer")
+local composer = require('composer')
 
 local menuScene = composer.newScene()
 local playButtom
@@ -18,9 +18,9 @@ function menuScene:create(event)
     playButtom = display.newText('Play', display.contentCenterX, display.contentCenterY - 50,
         native.systemFont, 100)
 
-    playButtom:addEventListener("tap", play)
+    playButtom:addEventListener('tap', play)
 end
 
-menuScene:addEventListener("create", menuScene)
+menuScene:addEventListener('create', menuScene)
 
 return menuScene
