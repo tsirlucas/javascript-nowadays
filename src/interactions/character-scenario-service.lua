@@ -6,8 +6,7 @@ local game
 local firstCollision
 
 local function onCollision(event)
-    print (firstCollision)
-    if (firstCollision and event.phase == 'ended') then
+    if (firstCollision and event.phase == 'began') then
         dialogService.interact(event, 'collision', event.object2.name)
         event.contact.isEnabled = false
         game.stopPhysics()

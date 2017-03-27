@@ -25,8 +25,8 @@ function gameScene:stopPhysics(event)
 end
 
 function gameScene:destroy(event)
-    characterScenarioService.stopWatching()
     character.destroy()
+    characterScenarioService.stopWatching()
     scenario.destroy()
     joystick.destroy()
 end
