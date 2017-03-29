@@ -7,7 +7,7 @@ local firstCollision
 
 local function onCollision(event)
     if (firstCollision and event.phase == 'began') then
-        dialogService.interact(event, 'collision', event.object2.name)
+        dialogService.interact(event, 'collision', event.object1.name)
         event.contact.isEnabled = false
         game.stopPhysics()
         composer.gotoScene('src.scenes.game-over.game-over')

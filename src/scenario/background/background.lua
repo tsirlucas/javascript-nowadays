@@ -1,12 +1,19 @@
 local background = display.newRect(0, 0, 5000, 5000)
-local backgroundBigCloud1 = display.newImage('src/scenario/background/images/cloud1@2x.png')
-local backgroundBigCloud2 = display.newImage('src/scenario/background/images/cloud5@2x.png')
-local backgroundBigCloud3 = display.newImage('src/scenario/background/images/cloud1@2x.png')
-local backgroundLittleCloud1 = display.newImage('src/scenario/background/images/cloud2.png')
-local backgroundLittleCloud2 = display.newImage('src/scenario/background/images/cloud3.png')
-local backgroundLittleCloud3 = display.newImage('src/scenario/background/images/cloud4.png')
+local backgroundBigCloud1
+local backgroundBigCloud2
+local backgroundBigCloud3
+local backgroundLittleCloud1
+local backgroundLittleCloud2
+local backgroundLittleCloud3
 
 function background:create()
+    backgroundBigCloud1 = display.newImage('src/scenario/background/images/cloud1@2x.png')
+    backgroundBigCloud2 = display.newImage('src/scenario/background/images/cloud5@2x.png')
+    backgroundBigCloud3 = display.newImage('src/scenario/background/images/cloud1@2x.png')
+    backgroundLittleCloud1 = display.newImage('src/scenario/background/images/cloud2.png')
+    backgroundLittleCloud2 = display.newImage('src/scenario/background/images/cloud3.png')
+    backgroundLittleCloud3 = display.newImage('src/scenario/background/images/cloud4.png')
+
     background.fill = {
         type = 'gradient',
         color1 = { 0.2, 0.45, 0.8 },

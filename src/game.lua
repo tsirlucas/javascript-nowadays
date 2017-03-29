@@ -12,9 +12,9 @@ local group
 function gameScene:create(event)
     physics.start()
     physics.setGravity(0, 0)
-    
-    character.create()
+
     scenario.initialize(event, 50)
+    character.create()
 
     characterJoystickService.initialize(event, character, joystick)
     characterScenarioService.watchCollisions(event, gameScene)
