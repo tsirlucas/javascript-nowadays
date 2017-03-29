@@ -3,7 +3,7 @@ local scenario = require 'src.scenario.scenario'
 local character = require 'src.character.character'
 local joystick = require 'src.joystick'
 local characterJoystickService = require 'src.interactions.character-joystick-service'
-local characterScenarioService = require 'src.interactions.character-scenario-service'
+local interactionsService = require 'src.interactions.interactions-service'
 local composer = require('composer')
 
 local gameScene = composer.newScene()
@@ -17,7 +17,7 @@ function gameScene:create(event)
     character.create()
 
     characterJoystickService.initialize(event, character, joystick)
-    characterScenarioService.watchCollisions(event, gameScene)
+    interactionsService.watchCollisions(event, gameScene)
 end
 
 function gameScene:stopPhysics(event)
@@ -26,7 +26,7 @@ end
 
 function gameScene:destroy(event)
     character.destroy()
-    characterScenarioService.stopWatching()
+    interactionsService.stopWatching()
     scenario.destroy()
     joystick.destroy()
 end
