@@ -1,15 +1,18 @@
-local characterJoystick = display.newGroup()
+return (function()
 
-function characterJoystick:initialize(character, joystick)
-    local joystickCallback = function(direction, angle, distance)
-        if (distance ~= 0) then
-            local movementScale = {}
-            movementScale.x = math.cos(math.rad(angle))
-            movementScale.y = math.sin(math.rad(angle))
-            character.move(event, movementScale, distance)
+    local function initialize(character, joystick)
+        local joystickCallback = function(direction, angle, distance)
+            if (distance ~= 0) then
+                local movementScale = {}
+                movementScale.x = math.cos(math.rad(angle))
+                movementScale.y = math.sin(math.rad(angle))
+                character.move(movementScale, distance)
+            end
         end
+        joystick.initialize(joystickCallback);
     end
-    joystick.initialize(event, joystickCallback);
-end
 
-return characterJoystick
+    return{
+        initialize = initialize
+    }
+end)()

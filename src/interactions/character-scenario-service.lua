@@ -1,14 +1,17 @@
 local dialogService = require 'src.interactions.dialog-service'
 local composer = require 'composer'
 
-local characterScenario = display.newGroup()
+return (function()
 
-function characterScenario:trigger(event, game, objectName)
-    dialogService.interact(event, 'scenarioCollision', objectName)
-    event.contact.isEnabled = false
-    game.stopPhysics()
-    composer.gotoScene('src.scenes.game-over.game-over')
-    composer.removeScene('src.game')
-end
+    local function trigger(event, game, objectName)
+        dialogService.interact('scenarioCollision', objectName)
+        event.contact.isEnabled = false
+        game.stopPhysics()
+        composer.gotoScene('src.scenes.game-over.game-over')
+        composer.removeScene('src.game')
+    end
 
-return characterScenario
+    return {
+        trigger = trigger
+    }
+end)()

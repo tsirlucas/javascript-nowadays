@@ -16,12 +16,12 @@ function gameScene:create(event)
     physics.start()
     physics.setGravity(0, 0)
 
-    scenario.initialize(event, gameSpeed)
+    scenario.initialize(gameSpeed)
     character.create()
-    obstacles.startSpam(event, gameSpeed)
+    obstacles.startSpam(gameSpeed)
 
-    characterJoystickService.initialize(event, character, joystick)
-    interactionsService.watchCollisions(event, gameScene)
+    characterJoystickService.initialize(character, joystick)
+    interactionsService.watchCollisions(gameScene)
 end
 
 function gameScene:stopPhysics(event)
