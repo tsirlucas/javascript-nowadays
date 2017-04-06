@@ -1,4 +1,5 @@
 local characterScenarioService = require 'src.interactions.character-scenario-service'
+local characterObstaclesService = require 'src.interactions.character-obstacles-service'
 
 local interactions = display.newGroup()
 
@@ -7,12 +8,14 @@ local firstCollision
 
 local interactorsMap = {
     roof = characterScenarioService,
-    floor = characterScenarioService
+    floor = characterScenarioService,
+    callbackHell = characterObstaclesService
 }
 
 local function callInteractor(event)
-    local interactor = interactorsMap[event.object1.name]
-    interactor.trigger(event, event, game)
+    local object = true and event.object1.name or event.object2.name
+    local interactor = interactorsMap[object]
+    interactor.trigger(event, event, game, object)
     firstCollision = false
 end
 

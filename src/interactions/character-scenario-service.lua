@@ -3,8 +3,8 @@ local composer = require 'composer'
 
 local characterScenario = display.newGroup()
 
-function characterScenario:trigger(event, game)
-    dialogService.interact(event, 'collision', event.object1.name)
+function characterScenario:trigger(event, game, objectName)
+    dialogService.interact(event, 'scenarioCollision', objectName)
     event.contact.isEnabled = false
     game.stopPhysics()
     composer.gotoScene('src.scenes.game-over.game-over')

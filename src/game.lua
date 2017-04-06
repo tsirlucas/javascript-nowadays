@@ -33,6 +33,7 @@ function gameScene:destroy(event)
     interactionsService.stopWatching()
     scenario.destroy()
     joystick.destroy()
+    obstacles.destroy()
 end
 
 

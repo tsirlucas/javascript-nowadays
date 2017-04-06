@@ -7,6 +7,8 @@ local game
 local firstCollision
 local speed
 
+local spawnLocation = display.screenOriginX + display.contentWidth
+
 local positionMap = {
     top = display.screenOriginY,
     bottom = display.screenOriginY + display.contentHeight
@@ -20,6 +22,8 @@ local obstaclesMap = {
 local lastObstacle = {}
 
 local lastPosition = {}
+
+local visibleObstacles = display.newGroup()
 
 
 local function sortPosition()
@@ -41,7 +45,6 @@ local function sortObstacle()
     while (obstacle == lastObstacle.first and obstacle == lastObstacle.second) do
         obstacle = math.random(1, 2)
     end
-    print(lastObstacle.first, lastObstacle.second, obstacle)
     lastObstacle.second = lastObstacle.first
     lastObstacle.first = obstacle
     return obstaclesMap[obstacle]
@@ -50,7 +53,7 @@ end
 local function spam()
     local position = sortPosition()
     local obstacle = sortObstacle()
-    obstacle.spawn(event, 500, position.coordinate, speed, position.place)
+    visibleObstacles:insert(obstacle.spawn(event, spawnLocation, position.coordinate, speed, position.place))
 end
 
 function obstacles:startSpam(gameSpeed)
@@ -59,8 +62,13 @@ function obstacles:startSpam(gameSpeed)
     obstaclesTimer = timer.performWithDelay(gameSpeed * 150, spam, -1)
 end
 
-function obstacles:stopSpam()
+function obstacles:destroy()
     timer.cancel(obstaclesTimer)
+    for a = 1, visibleObstacles.numChildren, 1 do
+        visibleObstacles[a].destroy()
+    end
+    display.remove(visibleObstacles)
+    visibleObstacles = display.newGroup()
 end
 
 return obstacles
