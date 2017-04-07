@@ -1,14 +1,14 @@
-local background
-local backgroundBigCloud1
-local backgroundBigCloud2
-local backgroundBigCloud3
-local backgroundLittleCloud1
-local backgroundLittleCloud2
-local backgroundLittleCloud3
-
 return (function()
 
-    local function create()
+    local background
+    local backgroundBigCloud1
+    local backgroundBigCloud2
+    local backgroundBigCloud3
+    local backgroundLittleCloud1
+    local backgroundLittleCloud2
+    local backgroundLittleCloud3
+
+    local function create(group)
         background = display.newRect(0, 0, 5000, 5000)
         backgroundBigCloud1 = display.newImage('src/scenario/background/images/cloud1@2x.png')
         backgroundBigCloud2 = display.newImage('src/scenario/background/images/cloud5@2x.png')
@@ -22,6 +22,8 @@ return (function()
             color1 = { 0.2, 0.45, 0.8 },
             color2 = { 0.7, 0.8, 1 }
         }
+
+        group:insert(background)
 
         backgroundBigCloud1.x = 600
         backgroundBigCloud1.y = 200

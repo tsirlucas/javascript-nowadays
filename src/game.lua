@@ -13,10 +13,13 @@ local group
 local gameSpeed = 50
 
 function gameScene:create(event)
+    local scenarioGroup = self.view
+    scenarioGroup:toBack()
+
     physics.start()
     physics.setGravity(0, 0)
 
-    scenario.initialize(gameSpeed)
+    scenario.initialize(scenarioGroup, gameSpeed)
     character.create()
     obstacles.startSpam(gameSpeed)
 

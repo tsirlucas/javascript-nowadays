@@ -4,7 +4,7 @@ local composer = require 'composer'
 return (function()
 
     local function trigger(event, game, objectName)
-        dialogService.interact(event, 'obstacleCollision', objectName)
+        dialogService.interact('obstacleCollision', objectName)
         event.contact.isEnabled = false
         game.stopPhysics()
         composer.gotoScene('src.scenes.game-over.game-over')

@@ -17,11 +17,11 @@ return (function()
         scenarioTimer = timer.performWithDelay(1, moveScenario, -1)
     end
 
-    local function initialize(initialSpeed)
+    local function initialize(group, initialSpeed)
         speed = initialSpeed
-        background.create();
-        floor.create();
-        roof.create();
+        background.create(group);
+        floor.create(group);
+        roof.create(group);
         run()
     end
 
