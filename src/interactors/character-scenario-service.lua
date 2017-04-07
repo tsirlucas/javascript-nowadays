@@ -1,4 +1,4 @@
-local dialogService = require 'src.interactions.dialog-service'
+local dialogService = require 'src.interactors.dialog-service'
 local composer = require 'composer'
 
 return (function()

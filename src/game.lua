@@ -2,8 +2,8 @@ local physics = require 'physics'
 local scenario = require 'src.scenario.scenario'
 local character = require 'src.character.character'
 local joystick = require 'src.joystick'
-local characterJoystickService = require 'src.interactions.character-joystick-service'
-local interactionsService = require 'src.interactions.interactions-service'
+local characterJoystickService = require 'src.interactors.character-joystick-service'
+local interactionsService = require 'src.interactors.interactions-service'
 local composer = require('composer')
 local obstacles = require('src.obstacles.obstacles')
 

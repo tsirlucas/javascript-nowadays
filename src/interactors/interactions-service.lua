@@ -1,5 +1,5 @@
-local characterScenarioService = require 'src.interactions.character-scenario-service'
-local characterObstaclesService = require 'src.interactions.character-obstacles-service'
+local characterScenarioService = require 'src.interactors.character-scenario-service'
+local characterObstaclesService = require 'src.interactors.character-obstacles-service'
 
 return (function()
 

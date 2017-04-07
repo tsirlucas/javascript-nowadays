@@ -3,7 +3,7 @@ local physics = require 'physics'
 return (function()
 
     local function spawn(x, y, speed, position)
-        local obstacle = display.newImageRect('src/obstacles/callback-hell/images/callback-hell.png', 500, 400)
+        local obstacle = display.newImageRect('src/obstacles/callback-hell/images/callback-hell.png', 150, 400)
         obstacle.type = 'obstacle'
         obstacle.name = 'callbackHell'
         obstacle.x = x + 70
