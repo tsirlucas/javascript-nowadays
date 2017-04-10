@@ -50,7 +50,7 @@ return (function()
 
     local function destroy()
         for a = 1, blocks.numChildren, 1 do
-            display.remove(blocks[a])
+            display.remove(blocks[1])
         end
     end
 

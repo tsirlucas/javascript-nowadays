@@ -28,7 +28,7 @@ return (function()
     local function destroy()
         timer.cancel(obstaclesTimer)
         for a = 1, visibleObstacles.numChildren, 1 do
-            visibleObstacles[a].destroy()
+            visibleObstacles[1].destroy()
         end
         display.remove(visibleObstacles)
         visibleObstacles = display.newGroup()
