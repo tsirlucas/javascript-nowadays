@@ -12,6 +12,30 @@ local group
 
 local gameSpeed = 50
 
+local gameScore
+local gameScoreElement
+local gameScoreTimer
+local scorePosition = {
+    x = display.screenOriginX + display.contentWidth - 150,
+    y = display.screenOriginY + 120
+}
+
+local function incrementScore()
+    gameScore = gameScore + 1;
+    display.remove(gameScoreElement)
+    gameScoreElement = display.newText(gameScore, scorePosition.x, scorePosition.y,
+        native.systemFont, 70)
+end
+
+local function startScoreCounter()
+    gameScoreTimer = timer.performWithDelay((20000/gameSpeed), incrementScore, -1)
+end
+
+local function stopScoreCounter()
+    timer.cancel(gameScoreTimer)
+end
+
+
 function gameScene:create(event)
     local scenarioGroup = self.view
     scenarioGroup:toBack()
@@ -22,6 +46,10 @@ function gameScene:create(event)
     scenario.initialize(scenarioGroup, gameSpeed)
     character.create()
     obstacles.startSpam(gameSpeed)
+    gameScore = 0
+    gameScoreElement = display.newText(gameScore, scorePosition.x, scorePosition.y,
+        native.systemFont, 70)
+    startScoreCounter()
 
     characterJoystickService.initialize(character, joystick)
     interactionsService.watchCollisions(gameScene)
@@ -37,6 +65,8 @@ function gameScene:destroy(event)
     scenario.destroy()
     joystick.destroy()
     obstacles.destroy()
+    display.remove(gameScoreElement)
+    stopScoreCounter()
 end
 
 
