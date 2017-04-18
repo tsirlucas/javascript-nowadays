@@ -1,14 +1,14 @@
-local callbackHell = require('src.obstacles.callback-hell.callback-hell')
+local promises = require('src.powers.promises.promises')
 local sortService = require('src.util.sort-service')
 
 return (function()
 
-    local obstaclesMap = {
-        callbackHell,
-        callbackHell
+    local powersMap = {
+        promises,
+        promises
     }
 
-    local lastObstacle = {}
+    local lastPower = {}
 
     local lastPosition = {}
 
@@ -23,14 +23,14 @@ return (function()
         return position
     end
 
-    local function sortObstacle()
-        local obstacle = sortService.sortElement(obstaclesMap, 2, lastObstacle)
-        lastObstacle = obstacle.lastElement
-        return obstacle.content
+    local function sortPower()
+        local power = sortService.sortElement(powersMap, 2, lastPower)
+        lastPower = power.lastElement
+        return power.content
     end
 
     return {
         sortPosition = sortPosition,
-        sortObstacle = sortObstacle
+        sortPower = sortPower
     }
 end)()
