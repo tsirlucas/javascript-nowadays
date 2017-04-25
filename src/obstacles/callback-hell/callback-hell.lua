@@ -6,6 +6,7 @@ return (function()
         local obstacle = display.newImageRect('src/obstacles/callback-hell/images/callback-hell.png', 150, 400)
         obstacle.type = 'obstacle'
         obstacle.name = 'callbackHell'
+        obstacle.counter = 'promises'
         obstacle.x = x + 70
         obstacle.y = position == 'top' and (y + 150) or (y - 150)
         physics.addBody(obstacle, { density = 10, friction = 10, bounce = 10, filter = { groupIndex = -1 } })
