@@ -3,10 +3,10 @@ local physics = require 'physics'
 return (function()
 
     local function spawn(x, y, speed, position)
-        local power = display.newImageRect('src/powers/promises/images/promises.png', 150, 400)
+        local power = display.newImageRect('src/powers/promises/images/promises.png', 100, 200)
         power.type = 'powers'
         power.name = 'promises'
-        power.x = x + 70
+        power.x = x - 170
         power.y = position == 'top' and (y + 150) or (y - 150)
         physics.addBody(power, { density = 10, friction = 10, bounce = 10, filter = { groupIndex = -1 } })
         local powerTimer
@@ -22,6 +22,7 @@ return (function()
 
         function power:destroy(event)
             timer.cancel(powerTimer)
+            physics.removeBody(power)
             display.remove(power)
         end
 

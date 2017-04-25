@@ -9,6 +9,7 @@ return (function()
         characterElement = display.newImageRect('src/character/images/character.png', 200, 150)
         characterElement.x = 200
         characterElement.y = 200
+        characterElement.powers = {}
         physics.addBody(characterElement, { density = 0, friction = 0, bounce = 0 })
     end
 
