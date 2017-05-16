@@ -11,13 +11,14 @@ local function play()
 end
 
 function gameOverScene:create(event)
-    background = display.newImageRect('src/scenes/game-over/images/game-over.jpg', display.actualContentWidth, display.actualContentHeight)
+    background = display.newRect(0, 0, 5000, 5000)
+    background:setFillColor( 0 )
     background.x = display.contentCenterX
     background.y = display.contentCenterY
     gameTitle = display.newText('You lose', display.contentCenterX, display.contentCenterY - 100,
-        native.systemFont, 100)
+        "src/fonts/Digital_tech.otf", 100)
     playButtom = display.newText('Play again', display.contentCenterX, display.contentCenterY,
-        native.systemFont, 100)
+        "src/fonts/Digital_tech.otf", 100)
 
     playButtom:addEventListener("tap", play)
 end

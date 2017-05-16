@@ -1,11 +1,11 @@
-local callbackHell = require('src.obstacles.callback-hell.callback-hell')
 local sortService = require('src.util.sort-service')
 
 return (function()
 
     local obstaclesMap = {
-        callbackHell,
-        callbackHell
+        'angular',
+        'react',
+        'vue'
     }
 
     local lastObstacle = {}
@@ -18,15 +18,15 @@ return (function()
     }
 
     local function sortPosition()
-        local position = sortService.sortPosition(positionMap, 2, lastPosition)
-        lastPosition = position.lastPosition
-        return position
+        return math.random(display.contentWidth)
     end
 
     local function sortObstacle()
-        local obstacle = sortService.sortElement(obstaclesMap, 2, lastObstacle)
-        lastObstacle = obstacle.lastElement
-        return obstacle.content
+        local option = obstaclesMap[math.random(3)];
+        lastObstacle = display.newImageRect('src/obstacles/images/' .. option .. '.png', 200, 200)
+        physics.addBody(lastObstacle, { density = 0, friction = 0, bounce = 0, filter = { groupIndex = -2 } })
+        lastObstacle.lib = true
+        return lastObstacle
     end
 
     return {

@@ -1,12 +1,12 @@
 return function (event, cb)
-    local character
     local element
-    if (event.object1.name == true) then
-        character = event.object2
-        element = event.object1
-    else
-        character = event.object1
+    local lib
+    if (event.object1.lib == true) then
         element = event.object2
+        lib = event.object1
+    else
+        lib = event.object2
+        element = event.object1
     end
-    cb(character, element)
+    cb(lib, element)
 end

@@ -1,8 +1,8 @@
 local physics = require 'physics'
 local scenario = require 'src.scenario.scenario'
 local character = require 'src.character.character'
-local joystick = require 'src.joystick'
-local characterJoystickService = require 'src.interactors.character-joystick-service'
+local touchpad = require 'src.touchpad'
+local characterTouchpadService = require 'src.interactors.character-touchpad-service'
 local interactionsService = require 'src.interactors.interactions-service'
 local composer = require('composer')
 local obstacles = require('src.obstacles.obstacles')
@@ -20,39 +20,46 @@ local scorePosition = {
     y = display.screenOriginY + 120
 }
 
-local function incrementScore()
-    gameScore = gameScore + 1;
+local backgroundMusicChannel
+
+local musicOptions =
+{
+    channel = 1,
+    loops = -1,
+    onComplete = callbackListener
+}
+
+local backgroundMusic = audio.loadStream( "src/ente_evil.mp3" )
+
+local function incrementScore(value)
+    backgroundMusicChannel = audio.play(backgroundMusic, musicOptions)
+    gameScore = gameScore + value;
     display.remove(gameScoreElement)
     gameScoreElement = display.newText(gameScore, scorePosition.x, scorePosition.y,
-        native.systemFont, 70)
-end
+        "src/fonts/Digital_tech.otf", 70)
 
-local function startScoreCounter()
-    gameScoreTimer = timer.performWithDelay((20000/gameSpeed), incrementScore, -1)
+    if(gameScore < 0) then
+        composer.gotoScene('src.scenes.game-over.game-over')
+        composer.removeScene('src.game')
+    end
 end
-
-local function stopScoreCounter()
-    timer.cancel(gameScoreTimer)
-end
-
 
 function gameScene:create(event)
     local scenarioGroup = self.view
     scenarioGroup:toBack()
 
     physics.start()
-    physics.setGravity(0, 0)
-
+    physics.setGravity()
+    obstacles.startSpam(gameSpeed)
     scenario.initialize(scenarioGroup, gameSpeed)
     character.create()
-    obstacles.startSpam(gameSpeed)
+    characterTouchpadService.setCharacter(character);
+    touchpad.start(characterTouchpadService.interact)
+    interactionsService.watchCollisions(gameScene, incrementScore, obstacles)
     gameScore = 0
     gameScoreElement = display.newText(gameScore, scorePosition.x, scorePosition.y,
         native.systemFont, 70)
-    startScoreCounter()
 
-    characterJoystickService.initialize(character, joystick)
-    interactionsService.watchCollisions(gameScene)
 end
 
 function gameScene:stopPhysics(event)
@@ -63,10 +70,10 @@ function gameScene:destroy(event)
     character.destroy()
     interactionsService.stopWatching()
     scenario.destroy()
-    joystick.destroy()
     obstacles.destroy()
+    touchpad.stop()
     display.remove(gameScoreElement)
-    stopScoreCounter()
+    audio.stop(backgroundMusicChannel)
 end
 
 

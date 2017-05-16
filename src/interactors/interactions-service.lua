@@ -1,24 +1,32 @@
-local characterScenarioService = require 'src.interactors.character-scenario-service'
-local characterObstaclesService = require 'src.interactors.character-obstacles-service'
-local characterPowersService = require 'src.interactors.character-powers-service'
+local floorLibsService = require 'src.interactors.floor-libs-service'
+local characterLibsService = require 'src.interactors.character-libs-service'
 
 return (function()
 
     local game
     local firstCollision
+    local incrementScore
+    local incrementSpeed
 
     local interactorsMap = {
-        roof = characterScenarioService,
-        floor = characterScenarioService,
-        callbackHell = characterObstaclesService,
-        promises = characterPowersService
+        character = characterLibsService,
+        floor = floorLibsService
     }
 
     local function _callInteractor(event)
-        local object = true and event.object1.name or event.object2.name
-        local interactor = interactorsMap[object]
-        interactor.trigger(event, game, object)
-        firstCollision = false
+        if (event.object1.lib or event.object2.lib) then
+            if (event.object1.char or event.object2.char) then
+                local object = 'character'
+                local interactor = interactorsMap[object]
+                interactor.trigger(event, game, object, incrementScore, incrementSpeed)
+                firstCollision = false
+            else
+                local object = 'floor'
+                local interactor = interactorsMap[object]
+                interactor.trigger(event, game, object, incrementScore, incrementSpeed)
+                firstCollision = false
+            end
+        end
     end
 
     local function _onCollision(event)
@@ -34,7 +42,9 @@ return (function()
         end)
     end
 
-    local function watchCollisions(gameScene)
+    local function watchCollisions(gameScene, increment, obstacles)
+        incrementScore = increment
+        incrementSpeed = obstacles.incrementSpeed
         firstCollision = true
         game = gameScene
         print(firstCollision)

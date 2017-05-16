@@ -1,6 +1,5 @@
 local background = require 'src.scenario.background.background'
 local floor = require 'src.scenario.floor.floor'
-local roof = require 'src.scenario.roof.roof'
 
 local speed;
 local scenarioTimer
@@ -9,8 +8,6 @@ return (function()
 
     local function moveScenario()
         background.update(speed)
-        roof.update(speed / 15)
-        floor.update(speed / 15)
     end
 
     local function run()
@@ -21,7 +18,6 @@ return (function()
         speed = initialSpeed
         background.create(group);
         floor.create(group);
-        roof.create(group);
         run()
     end
 
@@ -29,14 +25,9 @@ return (function()
         return floor
     end
 
-    local function getRoof()
-        return roof
-    end
-
     local function destroy()
         timer.cancel(scenarioTimer)
         background.destroy()
-        roof.destroy()
         floor.destroy()
     end
 
@@ -44,7 +35,6 @@ return (function()
         initialize = initialize,
         moveScenario = moveScenario,
         getFloor = getFloor,
-        getRoof = getRoof,
         run = run,
         destroy = destroy
     }

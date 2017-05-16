@@ -6,52 +6,19 @@ local tilesAmount = 50;
 
 return (function()
 
-    local blocks = display.newGroup()
+    local blocks
 
     local function create()
-        for a = 1, tilesAmount, 1 do
-            local numGen = math.random(2)
-            local newBlock
-
-            if (numGen == 1) then
-                newBlock = display.newImage('src/scenario/floor/images/1.png')
-
-            elseif (numGen == 2) then
-                newBlock = display.newImage('src/scenario/floor/images/1.png')
-            end
-
-            newBlock.name = ('floor')
-            newBlock.id = a
-
-            newBlock.x = (a * tileSize) - tileSize
-            newBlock.y = groundLevel
-
-            physics.addBody(newBlock, { density = 10, friction = 10, bounce = 10, filter = { groupIndex = -1 } })
-            blocks:insert(newBlock)
-        end
+        blocks = display.newImageRect('src/scenario/floor/images/floor.png', display.actualContentWidth * 2, 80)
+        blocks.y = display.actualContentHeight - 50
+        physics.addBody(blocks, 'static', { density = 0, friction = 0, bounce = 0, filter = { groupIndex = -1 } })
     end
 
     local function update(speed)
-        for a = 1, blocks.numChildren, 1 do
-            if ((blocks[a]).x < -100) then
-                local newX
-                if (a > 1) then
-                    newX = (blocks[a - 1]).x + tileSize
-                else
-                    newX = (blocks[tilesAmount]).x + tileSize - speed
-                end
-
-                (blocks[a]).x, (blocks[a]).y = newX, groundLevel
-            else
-                (blocks[a]):translate(speed * -1, 0)
-            end
-        end
     end
 
     local function destroy()
-        for a = 1, blocks.numChildren, 1 do
-            display.remove(blocks[1])
-        end
+        display.remove(blocks)
     end
 
     return {
