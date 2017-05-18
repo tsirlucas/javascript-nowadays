@@ -5,6 +5,7 @@ local playButtom
 local gameTitle
 local background
 local backgroundMusicChannel
+local backgroundColor
 
 local musicOptions =
 {
@@ -22,21 +23,20 @@ end
 
 function menuScene:create()
     backgroundMusicChannel = audio.play(backgroundMusic, musicOptions)
-    background = display.newRect(0, 0, 5000, 5000)
-    background:setFillColor( 0 )
+    backgroundColor =  display.newRect(0, 0, 5000, 5000);
+    backgroundColor:setFillColor(1, 1, 1);
+    background = display.newImageRect("assets/xablau-js.png",  display.actualContentWidth, display.actualContentHeight)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
-    gameTitle = display.newText('Javascript Nowadays', display.contentCenterX, display.contentCenterY - 250,
-        "src/fonts/Digital_tech.otf", 100)
-    playButtom = display.newText('Play', display.contentCenterX, display.contentCenterY - 50,
+    playButtom = display.newText('Play', display.contentCenterX, display.contentCenterY + 350,
         "src/fonts/Digital_tech.otf", 100)
 
     playButtom:addEventListener('tap', play)
 end
 
 function menuScene:destroy()
+    display.remove(backgroundColor)
     display.remove(background)
-    display.remove(gameTitle)
     display.remove(playButtom)
     audio.stop(backgroundMusicChannel)
 end

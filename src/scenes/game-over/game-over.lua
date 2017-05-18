@@ -27,12 +27,20 @@ function gameOverScene:create(event)
     score.load()
     score.init(scoreConfig);
     local currentScore = score.get();
+    local red = 0
+    local green = 0
+    local blue = 1
     local eventScore = event.params.score
     if (eventScore < 0) then
         eventScore = 0
     end
     if (not currentScore or (currentScore and eventScore > currentScore)) then
         score.set(eventScore);
+        green = 1;
+        blue = 0
+    elseif (eventScore < currentScore) then
+        red = 1
+        blue = 0
     end
 
     background = display.newRect(0, 0, 5000, 5000)
@@ -45,6 +53,8 @@ function gameOverScene:create(event)
         "src/fonts/Digital_tech.otf", 100)
     bestScore = display.newText('Best score: ' .. currentScore, display.contentCenterX, display.contentCenterY - 100,
         "src/fonts/Digital_tech.otf", 100)
+
+    playerScore:setFillColor(red, green, blue)
 
     playButtom:addEventListener("tap", play)
 end

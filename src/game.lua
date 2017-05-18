@@ -20,7 +20,7 @@ local scorePosition = {
     y = display.screenOriginY + 120
 }
 
-local gameTime = 15000 --120000
+local gameTime = 120
 local gameTimeElement
 local gameTimeTimer
 local gameTimePosition = {
@@ -57,7 +57,7 @@ end
 
 local function decrementTime()
     display.remove(gameTimeElement)
-    gameTime = gameTime - 1000
+    gameTime = gameTime - 1
     gameTimeElement = display.newText(gameTime, gameTimePosition.x, gameTimePosition.y,
         "src/fonts/Digital_tech.otf", 70)
 
