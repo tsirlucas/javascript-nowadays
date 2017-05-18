@@ -7,6 +7,7 @@ return (function()
     local firstCollision
     local incrementScore
     local incrementSpeed
+    local gameScore
 
     local interactorsMap = {
         character = characterLibsService,
@@ -18,7 +19,7 @@ return (function()
             if (event.object1.char or event.object2.char) then
                 local object = 'character'
                 local interactor = interactorsMap[object]
-                interactor.trigger(event, game, object, incrementScore, incrementSpeed)
+                interactor.trigger(event, game, object, incrementScore, incrementSpeed, gameScore)
                 firstCollision = false
             else
                 local object = 'floor'

@@ -20,16 +20,23 @@ local scorePosition = {
     y = display.screenOriginY + 120
 }
 
+local gameTime = 15000 --120000
+local gameTimeElement
+local gameTimeTimer
+local gameTimePosition = {
+    x = display.screenOriginX + 150,
+    y = display.screenOriginY + 120
+}
+
 local backgroundMusicChannel
 
-local musicOptions =
-{
+local musicOptions = {
     channel = 1,
     loops = -1,
     onComplete = callbackListener
 }
 
-local backgroundMusic = audio.loadStream( "src/ente_evil.mp3" )
+local backgroundMusic = audio.loadStream("src/ente_evil.mp3")
 
 local function incrementScore(value)
     backgroundMusicChannel = audio.play(backgroundMusic, musicOptions)
@@ -38,8 +45,25 @@ local function incrementScore(value)
     gameScoreElement = display.newText(gameScore, scorePosition.x, scorePosition.y,
         "src/fonts/Digital_tech.otf", 70)
 
-    if(gameScore < 0) then
-        composer.gotoScene('src.scenes.game-over.game-over')
+    if (gameScore < 0) then
+        display.remove(gameTimeElement)
+        gameTimeElement = display.newText(gameTime, gameTimePosition.x, gameTimePosition.y,
+            "src/fonts/Digital_tech.otf", 70)
+        timer.cancel(gameTimeTimer)
+        composer.gotoScene('src.scenes.game-over.game-over', { params = { score = gameScore } })
+        composer.removeScene('src.game')
+    end
+end
+
+local function decrementTime()
+    display.remove(gameTimeElement)
+    gameTime = gameTime - 1000
+    gameTimeElement = display.newText(gameTime, gameTimePosition.x, gameTimePosition.y,
+        "src/fonts/Digital_tech.otf", 70)
+
+    if (gameTime <= 0) then
+        timer.cancel(gameTimeTimer)
+        composer.gotoScene('src.scenes.game-over.game-over', { params = { score = gameScore } })
         composer.removeScene('src.game')
     end
 end
@@ -59,7 +83,10 @@ function gameScene:create(event)
     gameScore = 0
     gameScoreElement = display.newText(gameScore, scorePosition.x, scorePosition.y,
         native.systemFont, 70)
+    gameTimeElement = display.newText(gameTime, gameTimePosition.x, gameTimePosition.y,
+        "src/fonts/Digital_tech.otf", 70)
 
+    gameTimeTimer = timer.performWithDelay(1000, decrementTime, -1)
 end
 
 function gameScene:stopPhysics(event)
@@ -73,6 +100,7 @@ function gameScene:destroy(event)
     obstacles.destroy()
     touchpad.stop()
     display.remove(gameScoreElement)
+    display.remove(gameTimeElement)
     audio.stop(backgroundMusicChannel)
 end
 

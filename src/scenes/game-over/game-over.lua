@@ -1,9 +1,22 @@
 local composer = require("composer")
+local score = require("src.score-service")
 
 local gameOverScene = composer.newScene()
 local playButtom
 local gameTitle
+local playerScore
+local bestScore
 local background
+
+local scoreConfig = {
+    fontSize = 100,
+    font = "src/fonts/Digital_tech.otf",
+    x = display.contentCenterX,
+    y = display.contentCenterY,
+    maxDigits = 7,
+    leadingZeros = true,
+    filename = "scorefile.json",
+}
 
 local function play()
     composer.gotoScene('src.game')
@@ -11,13 +24,26 @@ local function play()
 end
 
 function gameOverScene:create(event)
+    score.load()
+    score.init(scoreConfig);
+    local currentScore = score.get();
+    local eventScore = event.params.score
+    if (eventScore < 0) then
+        eventScore = 0
+    end
+    if (not currentScore or (currentScore and eventScore > currentScore)) then
+        score.set(eventScore);
+    end
+
     background = display.newRect(0, 0, 5000, 5000)
-    background:setFillColor( 0 )
+    background:setFillColor(0)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
-    gameTitle = display.newText('You lose', display.contentCenterX, display.contentCenterY - 100,
+    playButtom = display.newText('Play again', display.contentCenterX, display.contentCenterY + 200,
         "src/fonts/Digital_tech.otf", 100)
-    playButtom = display.newText('Play again', display.contentCenterX, display.contentCenterY,
+    playerScore = display.newText('Your score: ' .. eventScore, display.contentCenterX, display.contentCenterY - 200,
+        "src/fonts/Digital_tech.otf", 100)
+    bestScore = display.newText('Best score: ' .. currentScore, display.contentCenterX, display.contentCenterY - 100,
         "src/fonts/Digital_tech.otf", 100)
 
     playButtom:addEventListener("tap", play)
@@ -27,6 +53,8 @@ function gameOverScene:destroy(event)
     display.remove(background)
     display.remove(gameTitle)
     display.remove(playButtom)
+    display.remove(playerScore)
+    display.remove(bestScore)
 end
 
 gameOverScene:addEventListener('create', gameOverScene)
