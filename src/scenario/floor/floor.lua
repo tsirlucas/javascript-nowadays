@@ -9,7 +9,7 @@ return (function()
     local blocks
 
     local function create()
-        blocks = display.newImageRect('src/scenario/floor/images/floor.png', display.actualContentWidth * 2, 80)
+        blocks = display.newImageRect('src/scenario/floor/images/floor.png', display.actualContentWidth * 2, 100)
         blocks.y = display.actualContentHeight - 50
         physics.addBody(blocks, 'static', { density = 0, friction = 0, bounce = 0, filter = { groupIndex = -1 } })
     end

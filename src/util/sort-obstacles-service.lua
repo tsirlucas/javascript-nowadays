@@ -5,7 +5,25 @@ return (function()
     local obstaclesMap = {
         'angular',
         'react',
-        'vue'
+        'vue',
+        'webpack',
+        'rollup',
+        'npm',
+        'yarn',
+        'gulp',
+        'typescript',
+        'meteor',
+        'preact',
+        'inferno',
+        'ember',
+        'polymer',
+        'redux',
+        'mobx',
+        'babel',
+        'jquery',
+        'leaflet',
+        'eslint',
+        'rxjs'
     }
 
     local lastObstacle = {}
@@ -22,7 +40,8 @@ return (function()
     end
 
     local function sortObstacle()
-        local option = obstaclesMap[math.random(3)];
+        local option = obstaclesMap[math.random(20)];
+        print(option)
         lastObstacle = display.newImageRect('src/obstacles/images/' .. option .. '.png', 150, 150)
         physics.addBody(lastObstacle, { density = 0, friction = 0, bounce = 0, filter = { groupIndex = -2 } })
         lastObstacle.lib = true

@@ -56,8 +56,12 @@ return (function()
             local contents = file:read('*a')
             print(contents)
             io.close(file)
-            local score = json.decode( contents )
-            return score.value
+            if(contents) then
+                local score = json.decode( contents )
+                return score.value
+            else
+                return 0
+             end
         else
             print("Error: could not read scores from ", filename, ".")
         end
