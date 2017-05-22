@@ -65,7 +65,7 @@ return (function()
         else
             print("Error: could not read scores from ", filename, ".")
         end
-        return nil
+        return 0
     end
 
     local function set(value)
